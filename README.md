@@ -27,7 +27,7 @@ The Rust toolchain includes a formatter, [rustfmt](https://github.com/rust-lang/
 
 ## Section notes
 
-### [1. Hello World](./hello-world)
+### [1. Hello World](./hello-world/src/main.rs)
 
 https://doc.rust-lang.org/rust-by-example/hello.html
 
@@ -35,22 +35,30 @@ First lesson focused on Formatted print. How to print to the console using `prin
 
 Custom structs can be printed with `{:?}` or `{:#?}` by adding `#[derive(Debug)]` to the line above its declaration. This is a [derive macro](https://doc.rust-lang.org/rust-by-example/trait/derive.html). For `Display`, the struct needs to implement the `Display` trait manually (as shown in the example).
 
-Still don't understand
-
-- struct
-
-### [2. Primitives](./primitives)
+### [2. Primitives](./primitives/src/main.rs)
 
 https://doc.rust-lang.org/rust-by-example/primitives.html
 
-u8, u16 etc, are unsigned integers. i8, i16 etc, are signed integers. The difference is that unsigned integers can not hold negative values. For example u8 can store values from 0 to 255. i8 can store values from -128 to 127.
+`u8`, `u16` etc, are unsigned integers. `i8`, `i16` etc, are signed integers. The difference is that unsigned integers can not hold negative values. For example `u8` can store values from 0 to 255. `i8` can store values from -128 to 127.
 
-Further detailed introduction to all the types. More fine grade typing than in TypeScript. Lots of different types for numbers and floats. Tuples are like fixed length arrays of values, where each position in the tuple have a specific type?
+Are the signed and unsigned integer types getting deprecated? https://doc.rust-lang.org/std/#modules
+
+Further detailed introduction to all the types. More fine grade typing than in TypeScript. Lots of different types for integers and floats. Tuples are like fixed length arrays of values, where each position in the tuple have a specific type?
 
 An array is a collection of objects **of the same type `T`**. Slices are similar to arrays, but their length is not known at compile time.
 
-Still don't understand
+### [3. Custom types](./custom-types/src/main.rs)
 
-- Shadowing?
+https://doc.rust-lang.org/rust-by-example/custom_types.html
 
-### 3. Custom types
+Rust custom data types are formed mainly through the two keywords:
+
+- `struct`: define a structure
+- `enum`: define an enumeration
+
+Constants can also be created via the const and static keywords.
+
+- `const`: An unchangeable value (the common case).
+- `static`: A possibly `mut`able variable with `static` lifetime. The static lifetime is inferred and does not have to be specified. Accessing or modifying a mutable static variable is `unsafe`.
+
+struct defines data structures. Can be tuples, single units, or objects like C structs with named fields. Enums are way different than in TypeScript. The [linked list example](https://doc.rust-lang.org/rust-by-example/custom_types/enum/testcase_linked_list.html) is a bit mind bending. Enums can have methods? const is the most straight forward, while static is a bit more complex.
