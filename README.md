@@ -62,3 +62,11 @@ Constants can also be created via the const and static keywords.
 - `static`: A possibly `mut`able variable with `static` lifetime. The static lifetime is inferred and does not have to be specified. Accessing or modifying a mutable static variable is `unsafe`.
 
 struct defines data structures. Can be tuples, single units, or objects like C structs with named fields. Enums are way different than in TypeScript. The [linked list example](https://doc.rust-lang.org/rust-by-example/custom_types/enum/testcase_linked_list.html) is a bit mind bending. Enums can have methods? const is the most straight forward, while static is a bit more complex.
+
+### [4. Variable Bindings](./variable-bindings/src/main.rs)
+
+https://doc.rust-lang.org/rust-by-example/variable_bindings.html
+
+Finally, the `mut` keyword. Simple example is that all variable bindings are **immutable by default**. Prefixing with the `mut` keyword makes a binding mutable.
+
+Scope is similar to TS. Variables have scope within {} blocks. Shadowing occurs when a new variable is declared with the same name as a previous variable. The new variable _shadows_ the previous variable. The first variable is no longer accessible. When shadowing a mutable variable, it's frozen in the current scope.
