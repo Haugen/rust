@@ -70,3 +70,14 @@ https://doc.rust-lang.org/rust-by-example/variable_bindings.html
 Finally, the `mut` keyword. Simple example is that all variable bindings are **immutable by default**. Prefixing with the `mut` keyword makes a binding mutable.
 
 Scope is similar to TS. Variables have scope within {} blocks. Shadowing occurs when a new variable is declared with the same name as a previous variable. The new variable _shadows_ the previous variable. The first variable is no longer accessible. When shadowing a mutable variable, it's frozen in the current scope.
+
+### [5. Types](./types/src/main.rs)
+
+https://doc.rust-lang.org/rust-by-example/types.html
+
+Rust provides several mechanisms to change or define the type of primitive and user defined types.
+
+- Casting between primitive types. Rust provides no implicit type conversion (coercion) between primitive types. But, explicit type conversion (casting) can be performed using the as keyword.
+- Specifying the desired type of literals. Numeric literals can be type annotated by adding the type as a suffix.
+- Using type inference. The type inference engine is pretty smart. It looks at how the variable is used afterwards to infer its type.
+- Aliasing types. The `type` statement can be used to give a new name to an existing type. The main use of aliases is to reduce boilerplate.
