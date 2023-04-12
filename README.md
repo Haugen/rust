@@ -81,3 +81,15 @@ Rust provides several mechanisms to change or define the type of primitive and u
 - Specifying the desired type of literals. Numeric literals can be type annotated by adding the type as a suffix.
 - Using type inference. The type inference engine is pretty smart. It looks at how the variable is used afterwards to infer its type.
 - Aliasing types. The `type` statement can be used to give a new name to an existing type. The main use of aliases is to reduce boilerplate.
+
+### [6. Conversion](./conversion/src/main.rs)
+
+https://doc.rust-lang.org/rust-by-example/conversion.html
+
+There are built in so called `traits` that helps convert between custom types like `struct` and `enum`. The general traits are `From` and `Into`, but there are specific ones for common cases like converting to and from strings.
+
+TryFrom and TryInto are similar to From and Into, but they return a Result instead of panicking on failure. Seems like we can think of ´Result´ as a JS Promise. It can either "resolve", by returning `Ok`, or "reject", yielding an `Err`.
+
+`unwrap()` comes in to play here as well. It will use the Ok value from a Result. More on this later, I guess.
+
+Converting to String uses the Display trait. We've already seen this implemented in previous sections. Rust can parse strings into other types. Sometimes by inference, but more commonly by specifying the target type.

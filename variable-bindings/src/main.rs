@@ -1,3 +1,6 @@
+#![allow(unused_variables)]
+#![allow(unused_assignments)]
+
 fn main() {
     let unit = ();
     println!("Meet the unit value: {:?}", unit);
