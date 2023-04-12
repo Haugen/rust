@@ -93,3 +93,11 @@ TryFrom and TryInto are similar to From and Into, but they return a Result inste
 `unwrap()` comes in to play here as well. It will use the Ok value from a Result. More on this later, I guess.
 
 Converting to String uses the Display trait. We've already seen this implemented in previous sections. Rust can parse strings into other types. Sometimes by inference, but more commonly by specifying the target type.
+
+### [7. Expressions](./expressions/src/main.rs)
+
+https://doc.rust-lang.org/rust-by-example/expression.html
+
+The most interesting thing with Rust here is that blocks of code can be expressions. In variable assignments, a whole block of code can run, and then assign a value.
+
+If the last line in a block does not end with a semicolon, the value of that line will be returned. If the last line **has** a semicolon at the end, () is returned.
