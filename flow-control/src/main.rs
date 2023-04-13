@@ -139,4 +139,63 @@ fn main() {
 
     // Names has now been modified, because we used `iter_mut` above.
     println!("names: {:?}", names);
+
+    // match
+
+    let number = 8;
+
+    // match is like a switch statement. And can, like loop and if/else, return
+    // values and declare a variable.
+    let result = match number {
+        // Using if statements in a matching arm. Called a match "guard".
+        i if number % 2 == 0 => "Even",
+        0 | 2 | 4 | 6 | 8 => "Even under 10",
+        13..=19 => "A teen",
+        _ => "Default",
+    };
+    println!("result: {}", result);
+
+    // A match block can destructure items in a variety of ways.
+
+    // tuples
+    let triple = (1, 2, 3);
+    match triple {
+        (0, y, z) => println!("First is 0, y is {}, z is {}", y, z),
+        (1, ..) => println!("First is 1, and the rest doesn't matter"),
+        (.., 2) => println!("Last is 2, and the rest doesn't matter"),
+        _ => println!("It doesn't matter what they are"),
+    }
+
+    // arrays/slices
+    let array = [1, -2, 6];
+
+    // Has similar properties like tuples, but a few additional ones:
+    match array {
+        // array[0] is ignored with _
+        [1, _, third] => println!("array[0] = 1, array[2] = {}", third),
+        [-1, second, ..] => println!("Bind some and ignore the rest"),
+        [3, second, tail @ ..] => println!("Store rest in `tail`"),
+        [first, middle @ .., last] => println!("Combo!"),
+        // _ is unreachable because the line above catches all.
+        // _ => println!("It doesn't matter what they are"),
+    }
+
+    // Further destructuring patterns are available for enums, structs, and the
+    // myterious pointers/ref.
+
+    // match binding
+
+    fn age() -> u32 {
+        15
+    }
+    match age() {
+        0 => println!("I'm not born yet I guess"),
+        // Could `match` 1 ..= 12 directly but then what age
+        // would the child be? Instead, bind to `n` for the
+        // sequence of 1 ..= 12. Now the age can be reported.
+        n @ 1..=12 => println!("I'm a child of age {:?}", n),
+        n @ 13..=19 => println!("I'm a teen of age {:?}", n),
+        // Catch all don't need to be _.
+        n => println!("I'm {} years old", n),
+    }
 }

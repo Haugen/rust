@@ -113,3 +113,5 @@ The `loop` keyword provides an infinite loop than then is controlled with `conti
 `while` loops are similar and straight forward. Can be labeled and can break/continue. But, they can't return values?
 
 Iterating on vectors (arrays) becomes [a bit more complicated](https://doc.rust-lang.org/rust-by-example/flow_control/for.html) than in JS. Collections need to be turned into Iterators with an iterator trait, like `iter`, `into_iter` and `iter_mut`. Examples in code.
+
+Rust provides pattern matching via the `match` keyword. Similar to `switch` in JS. The first matching "arm" is evaluated and all possible values must be covered. `match` provides a ton of [destructuring](https://doc.rust-lang.org/rust-by-example/flow_control/match/destructuring.html), some of which is covered in the example code. [`pointers/ref`](https://doc.rust-lang.org/rust-by-example/flow_control/match/destructuring/destructure_pointers.html) is really unclear atm.
