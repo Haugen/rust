@@ -101,3 +101,15 @@ https://doc.rust-lang.org/rust-by-example/expression.html
 The most interesting thing with Rust here is that blocks of code can be expressions. In variable assignments, a whole block of code can run, and then assign a value.
 
 If the last line in a block does not end with a semicolon, the value of that line will be returned. If the last line **has** a semicolon at the end, () is returned.
+
+### [8. Flow of control](./flow-of-control/src/main.rs)
+
+https://doc.rust-lang.org/rust-by-example/flow_control.html
+
+Since we can use block statements when declaring variables, we can also use if/else statements there. Interesting. Also, each branch in an if/else statement must return the same type.
+
+The `loop` keyword provides an infinite loop than then is controlled with `continue` and `break`. Loops can be `label`ed, and loops can break/continue other loops by referring to their labels. Loops can also return values, and be used as variable declarations just like if/else statements.
+
+`while` loops are similar and straight forward. Can be labeled and can break/continue. But, they can't return values?
+
+Iterating on vectors (arrays) becomes [a bit more complicated](https://doc.rust-lang.org/rust-by-example/flow_control/for.html) than in JS. Collections need to be turned into Iterators with an iterator trait, like `iter`, `into_iter` and `iter_mut`. Examples in code.
