@@ -1,6 +1,8 @@
 #![allow(unused_variables)]
 #![allow(unused_labels)]
 
+use std::str::FromStr;
+
 fn main() {
     // if/else
 
@@ -197,5 +199,78 @@ fn main() {
         n @ 13..=19 => println!("I'm a teen of age {:?}", n),
         // Catch all don't need to be _.
         n => println!("I'm {} years old", n),
+    }
+
+    // if/let
+
+    let letter = Some("hey");
+    let number = Some(7);
+    let letter: Option<i32> = None;
+    let emoticon: Option<i32> = None;
+
+    // Tries to destructure `number` into `Some(i)`. Success evaluates following
+    // {}. Else clause is the last catch, like the last _ in match.
+    // Can also use if/else
+    if let Some(i) = letter {
+        println!("Matched {:?}", i);
+    } else {
+        println!("Didn't match a number");
+    }
+
+    // if/let use with enums
+    enum Foo {
+        Bar,
+        Baz,
+        Qux(u32),
+    }
+
+    let a = Foo::Bar;
+    let b = Foo::Baz;
+    let c = Foo::Qux(100);
+
+    if let Foo::Bar = a {
+        println!("a is foobar");
+    }
+
+    // Can bind specific values here as well.
+    if let Foo::Qux(value @ 100) = c {
+        println!("c is one hundred");
+    } else if let Foo::Qux(value) = c {
+        println!("c is {}", value);
+    }
+
+    // let/else. Stable since Rust 1.65
+
+    // Not quite sure about the details here. Typing it out to get a feel for
+    // what it's about.
+    fn get_count_item(s: &str) -> (u64, &str) {
+        let mut it = s.split(' ');
+        let (Some(count_str), Some(item)) = (it.next(), it.next()) else {
+            panic!("Can't segment count item pair: '{s}'");
+        };
+        let Ok(count) = u64::from_str(count_str) else {
+            panic!("Can't parse integer: '{count_str}'");
+        };
+        (count, item)
+    }
+
+    assert_eq!(get_count_item("3 chairs "), (3, "chairs"));
+
+    // while/let
+
+    let mut optional = Some(0);
+
+    // while will keep running while let evaluates.
+    // while/let does not have opttional `else`/`else if` clauses.
+    while let Some(i) = optional {
+        if i > 9 {
+            println!("Greater than 9, quit!");
+            // Once we set optional to None, let will stop evaluating, and the
+            // loop will stop.
+            optional = None;
+        } else {
+            println!("`i` is `{:?}`. Try again.", i);
+            optional = Some(i + 1);
+        }
     }
 }

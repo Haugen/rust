@@ -115,3 +115,9 @@ The `loop` keyword provides an infinite loop than then is controlled with `conti
 Iterating on vectors (arrays) becomes [a bit more complicated](https://doc.rust-lang.org/rust-by-example/flow_control/for.html) than in JS. Collections need to be turned into Iterators with an iterator trait, like `iter`, `into_iter` and `iter_mut`. Examples in code.
 
 Rust provides pattern matching via the `match` keyword. Similar to `switch` in JS. The first matching "arm" is evaluated and all possible values must be covered. `match` provides a ton of [destructuring](https://doc.rust-lang.org/rust-by-example/flow_control/match/destructuring.html), some of which is covered in the example code. [`pointers/ref`](https://doc.rust-lang.org/rust-by-example/flow_control/match/destructuring/destructure_pointers.html) is really unclear atm.
+
+In some cases, `match` can be awkward and boilerplate'y. So we have `if`/`let`.
+
+`let`/`else` is stable since Rust 1.65 (We're at 1.68 at the time of writing this). This concept was more complicated and the code example less straight forward. But, it's basically a way to combine `if` and `match` into one statement. The `else` block is only executed if the `if` block fails.
+
+Last one. `while`/`let`, similar to `if`/`let`. The `while` block is only executed if the `let` block succeeds.
