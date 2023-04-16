@@ -121,3 +121,11 @@ In some cases, `match` can be awkward and boilerplate'y. So we have `if`/`let`.
 `let`/`else` is stable since Rust 1.65 (We're at 1.68 at the time of writing this). This concept was more complicated and the code example less straight forward. But, it's basically a way to combine `if` and `match` into one statement. The `else` block is only executed if the `if` block fails.
 
 Last one. `while`/`let`, similar to `if`/`let`. The `while` block is only executed if the `let` block succeeds.
+
+### [9. Functions](./functions/src/main.rs)
+
+https://doc.rust-lang.org/rust-by-example/fn.html
+
+Functions are declared using the `fn` keyword. Arguments are type annotated. If the functions returns a value, that too must be types after an arrow `->`. The final expression is used as a return value. Optionally, the `return` keyword can be used to return early, for example inside loops or if statements.
+
+Closures have a lot of detailed and new information. The closures can capture variables from outer scope. They can be captured by value, reference or mutable reference. This can be explicit or inferred. Keyword `move` can be used to force the closure to take ownership of the captured variables.
