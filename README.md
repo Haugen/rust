@@ -129,3 +129,21 @@ https://doc.rust-lang.org/rust-by-example/fn.html
 Functions are declared using the `fn` keyword. Arguments are type annotated. If the functions returns a value, that too must be types after an arrow `->`. The final expression is used as a return value. Optionally, the `return` keyword can be used to return early, for example inside loops or if statements.
 
 Closures have a lot of detailed and new information. The closures can capture variables from outer scope. They can be captured by value, reference or mutable reference. This can be explicit or inferred. Keyword `move` can be used to force the closure to take ownership of the captured variables.
+
+Not fully grasping the concepts yet. `move` is changing place where the content is stored in memory? `borrow` is a new reference to the already existing content? If a move is possible, then any type of borrow should also be possible. The reverse it not true.
+
+When a closure is used as a parameter in a function, it needs to satisfy one of three traits. In order of decreasing restriction:
+
+- Fn: the closure uses the captured value by reference (&T) Borrowing?
+- FnMut: the closure uses the captured value by mutable reference (&mut T) Borrowing mutably?
+- FnOnce: the closure uses the captured value by value (T) Moving?
+
+Just like closures, functions can also be used as arguments to other functions. In a function that takes a closure as a parameter, any function that satisfies the trait bound (Fn, FnMut or FnOnce) can also be passed as an argument.
+
+Functions can also return closures. Here, the `move` keyword must be used, because any captures by reference would be dropped as soon as the function exited, leaving invalid references in the closure.
+
+Iterator methods like `any`, `find` and `position` are examples of core functions that take closures as arguments and implements one of these traits.
+
+Rust provides Higher Order Functions (HOF). These are functions that takes one or more functions as arguments and/or produce a more useful function. **HOFs and lazy iterators give Rust its functional flavor**.
+
+Diverging functions are functions that never return. It's different that functions returning `()`. A diverging function panics and never gives back control to the caller. It is used in for example `loop`s and `match`. `continue` or `break` panics and never returns, which is fine. It is also the return type of functions that loop forever (`loop {}`) like network servers or functions that terminate the process (`exit()`).

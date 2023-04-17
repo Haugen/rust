@@ -1,3 +1,5 @@
+use std::mem;
+
 #[derive(Debug)]
 struct Point {
     x: f64,
@@ -123,4 +125,102 @@ fn main() {
     inc();
     // Here we can reborrow, since the closure is no longer using `count`.
     let _count_reborrowed = &mut count;
+
+    // As input parameters
+
+    // A function that takes a closure as an argument and calls it.
+    fn apply<F>(f: F)
+    where
+        // FnOnce is least restrictive.
+        // Fn and FnMut are more restrictive.
+        F: FnOnce(),
+    {
+        f();
+    }
+
+    // Function that takes a closure and returns i32.
+    fn apply_to_3<F>(f: F) -> i32
+    where
+        F: Fn(i32) -> i32,
+    {
+        f(3)
+    }
+
+    let greeting = "hello";
+    let mut farewell = "goodbye".to_owned();
+
+    // Closure that captures two variables:
+    // `greeting` by reference and `farewell` by value.
+    let diary = || {
+        // `greeting` is by reference: requires `Fn`.
+        println!("I said {}.", greeting);
+
+        // Mutation forces `farewell` to be captured by mutable reference.
+        // Now requires `FnMut`.
+        farewell.push_str("!!!");
+        println!("Then I screamed {}", farewell);
+
+        // Manually calling drop forces `farewell` to be captured by value.
+        // Now requires `FnOnce`.
+        mem::drop(farewell);
+    };
+
+    // Call the function which applies the closure.
+    apply(diary);
+
+    // `double` satisfies `apply_to_3`'s trait bound.
+    let double = |x| 2 * x;
+    println!("3 doubled: {}", apply_to_3(double));
+
+    // `add_10` also satisfies `apply_to_3`'s trait bound.
+    // A function that satisfies the trait bound can be passed, just like a closure.
+    fn add_10(x: i32) -> i32 {
+        x + 10
+    }
+    println!("3 added to 10: {}", apply_to_3(add_10));
+
+    // Using impl here. Same goes for FnMut and FnOnce.
+    fn create_fn() -> impl Fn() {
+        let text = "Fn".to_owned();
+        // Returning a closure here.
+        move || println!("This is a: {}", text)
+    }
+
+    let fn_plain = create_fn();
+    fn_plain();
+
+    // Examples with vectors. Same behaviour for arrays.
+    let vec1 = vec![1, 2, 3];
+    let vec2 = vec![4, 5, 6];
+
+    // Iterator::any is a function that takes a closure as argument.
+    // It implements the FnMut trait.
+
+    // `iter` borrows each element of `vec1` via reference. So vec1 can be referenced
+    // again after this.
+    println!("Find 2 in vec1: {}", vec1.iter().any(|&x| x == 2));
+    // `into_iter` creates a consuming iterator. vec2 is consumed (each value is `move`d)
+    // and can not be used again after this.
+    println!("Find 2 in vec2: {}", vec2.into_iter().any(|x| x == 2));
+
+    // We can iter() over vec1 again. This time using find, which returns an Option (Some or None).
+    println!("Find 2 in vec1: {:?}", vec1.iter().find(|&&x| x == 2));
+    assert_eq!(vec1.iter().find(|&&x| x == 2), Some(&2));
+
+    // A functional approach example in Rust.
+
+    fn is_odd(n: i32) -> bool {
+        n % 2 == 1
+    }
+
+    // Similar to JavaScript. Nesting functions. Each taking a closure as argument.
+    let sum_of_squared_odd_numbers: i32 = (0..)
+        .map(|n| n * n)
+        .take_while(|&n_squared| n_squared < 1000)
+        .filter(|&n_squared| is_odd(n_squared))
+        .sum();
+    println!(
+        "Sum of squared odd numbers under 1000: {}",
+        sum_of_squared_odd_numbers
+    );
 }
