@@ -146,4 +146,12 @@ Iterator methods like `any`, `find` and `position` are examples of core function
 
 Rust provides Higher Order Functions (HOF). These are functions that takes one or more functions as arguments and/or produce a more useful function. **HOFs and lazy iterators give Rust its functional flavor**.
 
-Diverging functions are functions that never return. It's different that functions returning `()`. A diverging function panics and never gives back control to the caller. It is used in for example `loop`s and `match`. `continue` or `break` panics and never returns, which is fine. It is also the return type of functions that loop forever (`loop {}`) like network servers or functions that terminate the process (`exit()`).
+Diverging functions are functions that never return. (Explicit return value is `!`) It's different that functions returning `()`. A diverging function panics and never gives back control to the caller. It is used in for example `loop`s and `match`. `continue` or `break` panics and never returns, which is fine. It is also the return type of functions that loop forever (`loop {}`) like network servers or functions that terminate the process (`exit()`).
+
+### [10. Modules](./modules/src/main.rs)
+
+https://doc.rust-lang.org/rust-by-example/mod.html
+
+A module is a collection of items: functions, structs, traits, impl blocks, and even other modules. Modules are declared with the `mod` keyword. By default, items in a module have `private` visibility, but can be overridden with the `pub` modifier. Only public items can be accessed from outside the module.
+
+Modules can be nested, and make use of the `self` and `super` keywords to refer to the current and parent module respectively. They can be organized in a tree-like structure. More in this with crates and cargo?
