@@ -155,3 +155,11 @@ https://doc.rust-lang.org/rust-by-example/mod.html
 A module is a collection of items: functions, structs, traits, impl blocks, and even other modules. Modules are declared with the `mod` keyword. By default, items in a module have `private` visibility, but can be overridden with the `pub` modifier. Only public items can be accessed from outside the module.
 
 Modules can be nested, and make use of the `self` and `super` keywords to refer to the current and parent module respectively. They can be organized in a tree-like structure. More in this with crates and cargo?
+
+### [11. Crates](./crates/src/main.rs)
+
+https://doc.rust-lang.org/rust-by-example/crates.html
+
+A crate is a compilation unit in Rust. When `rustc some_file.rs` is called, `some_file.rs` is treated as the crate file. If `some_file.rs` has `mod` declarations in it, then the contents of the module files would be inserted in place where `mod` declarations in the crate file are found, _before_ the compiler starts parsing the crate file. Modules do _not_ get compiled individually. Only crates get compiled.
+
+A crate can be compiled into a binary or into a library. By default, `rustc` creates a binary. To create a library, pass the flag `--crate-type=lib`. Libraries get prefixed with "lib" and are named after their crate file. Use `--crate-name` to override the library name.
