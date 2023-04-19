@@ -6,9 +6,12 @@ Getting started with "Rust by Example" at https://doc.rust-lang.org/rust-by-exam
 
 ## Helpful commands
 
-- `cargo new`: Create a new cargo project. Use `cargo new --vcs none` to not create a git repo.
+- `cargo new`: Create a new cargo project.
+  - Use `--vcs none` to not create a git repo.
+  - Use `--lib` to create a library.
 - `cargo run`: Build and run the project.
 - `cargo build`: Build the project.
+- `cargo test`: Run the tests.
 
 - `Cargo.toml`: The manifest file. It contains the project name, version, authors, dependencies, etc. Like package.json in nodejs.
 
@@ -163,3 +166,13 @@ https://doc.rust-lang.org/rust-by-example/crates.html
 A crate is a compilation unit in Rust. When `rustc some_file.rs` is called, `some_file.rs` is treated as the crate file. If `some_file.rs` has `mod` declarations in it, then the contents of the module files would be inserted in place where `mod` declarations in the crate file are found, _before_ the compiler starts parsing the crate file. Modules do _not_ get compiled individually. Only crates get compiled.
 
 A crate can be compiled into a binary or into a library. By default, `rustc` creates a binary. To create a library, pass the flag `--crate-type=lib`. Libraries get prefixed with "lib" and are named after their crate file. Use `--crate-name` to override the library name.
+
+### [12. Cargo](./cargo/src/main.rs)
+
+https://doc.rust-lang.org/rust-by-example/cargo.html
+
+`cargo` is the official Rust package management tool. Like npm, for Node. It also has a lot of useful features to improve code quality and developer velocity. The full cargo documentation is available at [The Cargo Book](https://doc.rust-lang.org/cargo/).
+
+Whether you are making a binary or a library, the concepts are all the same. Dependencies can be added in `Cargo.toml`. They can be versions from crates.io, git repositories or local paths. There are also `dev-dependencies` and `build-dependencies`. When using `cargo build` or `cargo run`, cargo will download, build and cache the dependencies.
+
+If a custom build script is needed, a `build.rs` file can be added to the project. This will then run before the normal build process. Alternatively, you can specify another build file with `build = "build_file.rs"` under package in Cargo.toml.
